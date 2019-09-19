@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <!-- Below is a bunch of lines to pull in a minimal bootstrap-vue setup;                           -->
+  <!--     If you've been here before, you should know that this is one of my favorite client setups -->
+  <!--     I would recommend you read more at: https://bootstrap-vue.js.org/                         -->
+
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+  <!-- We use polyfill.js to support older browsers with later features -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+    crossorigin="anonymous"></script>
+
+  <!-- our #includes for javascript :) (dev mode) -->
+  <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+  <script src="https://unpkg.com/axios@latest/dist/axios.min.js"></script>
+  <script src="jscolor.min.js"></script>
+
+  <!-- Then we just set up some traditional html options -->
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1, shrink-to-fit=yes'>
+
+
+</head>
+
+<body>
+  <div id='app'>
+    <b-card :title='apptitle' sub-title='with Jaycar Electronics'>
+      <b-form-group label="Lighting Effect" id='effect-group'>
+
+        <b-form-radio-group id="effect" v-model="effect" name="effect" buttons button-variant="outline-primary" style='width:100%'>
+          <b-form-radio value="solid">Solid</b-form-radio>
+          <b-form-radio value="flash">Strobe</b-form-radio>
+          <b-form-radio value="fade">Fade</b-form-radio>
+          <b-form-radio value="rainbow">Rainbow</b-form-radio>
+        </b-form-radio-group>
+
+      </b-form-group>
+      <b-form-group>
+
+        <b-input-group prepend="10ms" append="5s">
+          <b-form-input id='rate' v-model='rate' type='range' min='10' max='5000'>
+          </b-form-input>
+          <b-input-group-text slot="append" variant='info' style='font-style: italic'>{{rate | filterRate }}
+          </b-input-group-text>
+        </b-input-group>
+
+      </b-form-group>
+
+      <b-form-group label="Color Control" id='mix-group'>
+        <b-form-radio-group id="mix" v-model="mix" name="mix" >
+          <b-form-radio value="single"> Single</b-form-radio>
+          <b-form-radio value="mix"> Mix </b-form-radio>
+          <b-form-radio value="alternate"> Alternate</b-form-radio>
+        </b-form-radio-group>
+      </b-form-group>
+
+
+      <b-form-group label="Primary Colour" id='primary-group'>
+        <b-input-group id='colorone-group'>
+          <b-input-group-text slot='prepend'>Color:</b-input-group-text>
+          <b-form-input id='colorone' class='colinput' v-model='colorone'></b-form-input>
+          <b-btn class='jscolor {valueElement:"colorone"}' slot='append'> Picker </b-btn>
+        </b-input-group>
+      </b-form-group>
+
+      <b-form-group label="Secondary Colour" id='secondary-group'>
+        <b-input-group id='colourtwo-group'>
+          <b-input-group-text slot='prepend'>Color:</b-input-group-text>
+          <b-form-input id='colourtwo' class='colinput' v-model='colortwo'></b-form-input>
+          <b-btn class='jscolor {valueElement:"colourtwo"}' slot='append'> Picker </b-btn>
+        </b-input-group>
+      </b-form-group>
+
+      <b-btn variant='success' @click='send'>Change Lighting</b-btn>
+      <span :class='{response:true, error: hasError }'> Response:
+        <span> {{ message }} </span>
+      </span>
+    </b-card>
+  </div>
+</body>
+
+<!-- Now for our app specific files-->
+<script src="controller.js"></script>
+<link type="text/css" rel="stylesheet" href='style.css' />
+
+</html>

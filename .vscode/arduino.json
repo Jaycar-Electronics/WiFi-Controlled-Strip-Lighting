@@ -1,0 +1,8 @@
+{
+    "board": "esp8266:esp8266:d1",
+    "configuration": "xtal=80,vt=flash,exception=disabled,ssl=all,eesz=4M3M,ip=lm2f,dbg=Disabled,lvl=None____,wipe=sdk,baud=921600",
+    "port": "COM18",
+    "sketch": "controller\\controller.ino",
+    "output": ".vscode/output",
+    "programmer": "AVRISP mkII"
+}

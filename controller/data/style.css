@@ -1,0 +1,15 @@
+.jscolor {
+  width: 100%;
+}
+.colinput{
+  font-style: italic;
+}
+span.response{ 
+  font-family: 'Courier New', Courier, monospace;
+  margin: 2em;
+}
+span.error{
+  color: red;
+  font-weight: bold;
+}
+html, body {margin: 0; height: 100%; overflow: hidden}
