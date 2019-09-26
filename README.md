@@ -171,6 +171,13 @@ And finally, *please do not connect 12v to your ESP, on any pin.* Test and make 
 
 The "_Web App_"/Website portion of the software is located in the data folder and is written in HTML/Javascript; It mainly uses the [Bootstrap Vue](https://bootstrap-vue.js.org/) library to make a visually pleasing interface.
 
+There's two main parts of the web app:
+
+- `index.html` which controls the structure of the web-app.
+- `controller.js` which is the javascript functions of the web-app.
+
+If you want to contribue to the project and want to change around the controller, it might be best to have a look at <vuejs.org> to understand how vue works before beginning.
+
 Connecting the ESP to the network is a pretty easy process and we have simplified the parameter settings for you. We like this method and will continue it in future projects.
 
 The parameters for connecting to your network is as follows:
@@ -230,7 +237,7 @@ Once things have been set up, simply open up up the website of the ESP and you s
 
 ![index page](images/index.png)
 
-Here you will be able to change different effects, the rate of change, and most importantly, the colour and brightness. _(note: The rainbow effect will have no effect)_
+Here you will be able to change different effects, the rate of change, and most importantly, the colour and brightness. _(note: Changing the colour while on the rainbow effect will not change how the rainbow looks; that is only for the other methods)_
 
 ### File not found, (Did you upload files correctly?)
 

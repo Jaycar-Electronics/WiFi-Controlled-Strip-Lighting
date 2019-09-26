@@ -34,22 +34,6 @@ Important!
   Have a look at this table: https://www.twobitarcade.net/article/wemos-d1-pins-micropython/
 
   Simply: as we want D7, we can access it by 13; OR we can use 'D7' if Wemos is set as board type
-
-  | XC3802 pin | ESP8266 pin in code |
-  | :--------: | :-----------------: |
-  |     D0     |         16          |
-  |     D1     |          5          |
-  |     D2     |          4          |
-  |     D3     |          0          |
-  |     D4     |          2          |
-  |     D5     |         14          |
-  |     D6     |         12          |
-  |     D7     |         13          |
-  |     D8     |         15          |
-  |     A0     |         A0          |
-  |     RX     |          3          |
-  |     TX     |          1          |
-
   */
 
 const int led_pin = 13;
@@ -91,13 +75,17 @@ void setup()
 
 void loop()
 {
-  //rainbowStrip(colorone);
+  //handle clients
   server.handleClient();
   MDNS.update();
 
   // rate timeout
-  if ((millis() - timer) >= rate)
+
+  long durationSinceLast = millis() - timer;
+
+  if (durationSinceLast >= rate)
   {
+    //change effects as needed
     if (currentEffect == Solid)
     {
       solidEffect(strip, colorOne, colorTwo, currentMix);
@@ -106,7 +94,10 @@ void loop()
     {
       rainbowEffect(strip, colorOne);
     }
+
+    //show what we have changed the strip to
     strip.show();
+    //restart the timer
     timer = millis();
   }
 }
@@ -136,6 +127,7 @@ void setupLights()
   strip.setBrightness(100); // Set brightness to be about 2/5 ( max = 255)
 }
 
+//setup network, if you want to set it as a hotspot you would do so here.
 void setupNetwork(const char *SSID, const char *password)
 {
   WiFi.mode(WIFI_STA);
@@ -276,6 +268,14 @@ void searchFileSystem()
 
     Serial.printf("Serving file: %s as (%s)\n", filepath.c_str(), content.c_str());
 
+    //Here, we've found that we have to deliver the stream manually.
+    // this might be caused with an issue with the `streamFile()` function
+    // so we manually implemented it for performance.
+
+    // perhaps server.client().setNoDelay(true); solved the issue 
+    // in which we can change back to streamFile
+    // so we will leave this up to the pull requests 
+    // to clean up this code 
     File fp = SPIFFS.open(filepath, "r");
     size_t sent = 0;
     //write our own sending loop:
@@ -316,6 +316,6 @@ String getFileContentType(String &filepath)
   FILE_MATCH(".jpg", "image/jpeg")
   FILE_MATCH(".png", "image/png")
 
-  //just return something
+  //at the very least just return something
   return "text/plain";
 }

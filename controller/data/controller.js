@@ -3,6 +3,8 @@ axios.defaults.headers.common['Content-Type'] =
 
 var app = new Vue({
   el: '#app',
+
+  // this is the data relating to the app.
   data() {
     return {
       message: 'Good Morning!',
@@ -16,26 +18,23 @@ var app = new Vue({
       rate: 10,
     };
   },
+
+  //this filters the data for certain cases, 
   filters: {
+    
+    // this returns milliseconds to seconds with 2 decimal places, easier to read.
     filterRate: function(value) {
       return `${(value / 1000).toFixed(2)} s`;
     }
   },
-  computed: {},
-  // list of methods related to this vue instance
+
+  //these are functions or methods you want available in the app.
   methods: {
-    getColour() {
-      return (
-        document.getElementById('primary').textContent ||
-        document.getElementById('primary').value ||
-        'check Code'
-      );
-    },
-    check() {
-      this.message = this.getColour();
-    },
+
+    //this sends data to the ESP
     send() {
-      // send data as proper html-form x-www-urlencoded.
+
+      // construct data as proper html-form x-www-urlencoded, the esp finds this easiest to work with.
       const params = new URLSearchParams();
       params.append('mix', this.mix);
       params.append('effect', this.effect);
@@ -55,9 +54,6 @@ var app = new Vue({
           this.hasError = true;
         });
     },
-  },
 
-  // vuelife cycle, what to call after
-  // the vue instance is mounted
-  mounted() {},
+  },
 });
