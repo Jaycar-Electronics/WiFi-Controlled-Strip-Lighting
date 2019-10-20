@@ -83,7 +83,7 @@ void loop()
 
   long durationSinceLast = millis() - timer;
 
-  if (durationSinceLast >= rate)
+  if (durationSinceLast >= currentRate)
   {
     //change effects as needed
     if (currentEffect == Solid)
