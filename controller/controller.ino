@@ -48,7 +48,7 @@ long int currentRate = 500;
 
 // Global "neopixel" object will handle the striplighting.
 // SL3954 is GRB ordered, at 400khz; other devices (ie: XC3730) would differ
-Adafruit_NeoPixel strip(led_count, led_pin, NEO_KHZ400 + NEO_RGB);
+Adafruit_NeoPixel strip(led_count, led_pin, NEO_KHZ400 + NEO_BRG);
 
 // Web server to serve our app
 ESP8266WebServer server(80);
@@ -272,10 +272,10 @@ void searchFileSystem()
     // this might be caused with an issue with the `streamFile()` function
     // so we manually implemented it for performance.
 
-    // perhaps server.client().setNoDelay(true); solved the issue 
+    // perhaps server.client().setNoDelay(true); solved the issue
     // in which we can change back to streamFile
-    // so we will leave this up to the pull requests 
-    // to clean up this code 
+    // so we will leave this up to the pull requests
+    // to clean up this code
     File fp = SPIFFS.open(filepath, "r");
     size_t sent = 0;
     //write our own sending loop:

@@ -17,7 +17,6 @@
  * This will love to be refactored into a proper interface down the line.
 */
 
-
 // In general, there's a delay before each calling of the function,
 // as specified by the "rate" through the phone-app;
 
@@ -34,16 +33,16 @@ void solidEffect(Adafruit_NeoPixel &light, long colorOne, long colorTwo, LightEf
   case Mix:
     for (int i = 0; i < n; i++)
     {
-      light.setPixelColor(i, RED(colorOne) + redStep * i,
-                          GREEN(colorOne) + greenStep * i,
-                          BLUE(colorOne) + blueStep * i);
+      light.setPixelColor(i, RED(colorOne) - redStep * i,
+                          GREEN(colorOne) - greenStep * i,
+                          BLUE(colorOne) - blueStep * i);
     }
     break;
 
   case Alternate:
     for (int i = 0; i < n; i++)
     {
-      if (i > n / 2)
+      if (i % 2)
         light.setPixelColor(i, colorOne);
       else
         light.setPixelColor(i, colorTwo);
